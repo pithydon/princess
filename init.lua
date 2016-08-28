@@ -134,6 +134,48 @@ minetest.register_node("princess:gold_chandelier_unlit", {
 	groups = {dig_immediate = 2}
 })
 
+minetest.register_node("princess:princess_chest", {
+	description = "Princess Chest",
+	drawtype = "normal",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	tiles = {"princess_chest_top.png", "princess_chest_top.png", "princess_chest_side.png",
+			"princess_chest_side.png", "princess_chest_side.png", "princess_chest_front.png"},
+	groups = {cracky = 2},
+	sounds = default.node_sound_defaults(),
+	on_construct = function(pos)
+		local meta = minetest.get_meta(pos)
+		meta:set_string("formspec", "size[8,9]"..default.gui_bg..default.gui_bg_img..default.gui_slots..
+				"list[current_name;main;0,0.3;8,4;]list[current_player;main;0,4.85;8,1;]"..
+				"list[current_player;main;0,6.08;8,3;8]listring[current_name;main]listring[current_player;main]"..
+				default.get_hotbar_bg(0,4.85))
+		meta:set_string("infotext", "Princess Chest")
+		local inv = meta:get_inventory()
+		inv:set_size("main", 8*4)
+	end,
+	can_dig = function(pos,player)
+		local meta = minetest.get_meta(pos);
+		local inv = meta:get_inventory()
+		return inv:is_empty("main")
+	end,
+	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		minetest.log("action", player:get_player_name().." moves stuff in princess chest at "..minetest.pos_to_string(pos))
+	end,
+	on_metadata_inventory_put = function(pos, listname, index, stack, player)
+		minetest.log("action", player:get_player_name().." moves "..stack:get_name().." to princess chest at "..minetest.pos_to_string(pos))
+	end,
+	on_metadata_inventory_take = function(pos, listname, index, stack, player)
+		minetest.log("action", player:get_player_name().." takes "..stack:get_name().." from princess chest at "..minetest.pos_to_string(pos))
+	end,
+	on_blast = function(pos)
+		local drops = {}
+		default.get_inventory_drops(pos, "main", drops)
+		drops[#drops+1] = "princess:princess_chest"
+		minetest.remove_node(pos)
+		return drops
+	end,
+})
+
 minetest.register_node("princess:throne", {
 	description = "Princess Throne",
 	drawtype = "nodebox",
@@ -209,6 +251,14 @@ beds.register_bed("princess:princess_bed", {
 	}
 })
 
+default.register_fence("princess:princess_pink_material_fence", {
+	description = "Pink Princess Material Stuff Fence",
+	texture = "princess_pink_material.png",
+	material = "princess:princess_pink_material",
+	groups = {cracky = 2},
+	sounds = default.node_sound_defaults()
+})
+
 default.register_fence("princess:princess_white_material_fence", {
 	description = "White Princess Material Stuff Fence",
 	texture = "princess_white_material.png",
@@ -231,6 +281,14 @@ doors.register_door("princess:princess_white_material_door", {
 	protected = false
 })
 
+doors.register_fencegate("princess:princess_pink_material_fence_gate", {
+	description = "Pink Princess Material Stuff Fence Gate",
+	texture = "princess_pink_material.png",
+	material = "princess:princess_pink_material",
+	groups = {cracky = 2},
+	sounds = default.node_sound_defaults()
+})
+
 doors.register_fencegate("princess:princess_white_material_fence_gate", {
 	description = "White Princess Material Stuff Fence Gate",
 	texture = "princess_white_material.png",
@@ -239,6 +297,8 @@ doors.register_fencegate("princess:princess_white_material_fence_gate", {
 	sounds = default.node_sound_defaults()
 })
 
+walls.register("princess:princess_pink_material_wall", "Pink Princess Material Stuff Wall", "princess_pink_material.png",
+		"princess:princess_pink_material", default.node_sound_defaults())
 walls.register("princess:princess_rose_cobble_wall", "Rose Cobblestone Wall", "default_cobble.png^princess_rose_cobble.png",
 		"princess:princess_rose_cobble", default.node_sound_stone_defaults())
 walls.register("princess:princess_white_material_wall", "White Princess Material Stuff Wall", "princess_white_material.png",
@@ -270,6 +330,8 @@ register_internal_material("princess_dungeon_brick", {cracky = 3}, {"princess_du
 		"Princess Dungeon Brick", default.node_sound_stone_defaults())
 register_internal_material("princess_mossy_dungeon_brick", {cracky = 3}, {"princess_mossy_dungeon_brick.png"},
 		"Mossy Princess Dungeon Brick", default.node_sound_stone_defaults())
+register_internal_material("princess_pink_material", {cracky = 2}, {"princess_pink_material.png"},
+		"Pink Princess Material Stuff", default.node_sound_defaults())
 register_internal_material("princess_rose_cobble", {cracky = 3, stone = 2}, {"default_cobble.png^princess_rose_cobble.png"},
 		"Rose Cobblestone", default.node_sound_stone_defaults())
 register_internal_material("princess_tower_brick", {cracky = 3}, {"princess_tower_brick.png"},
@@ -280,6 +342,10 @@ register_internal_material("princess_white_material", {cracky = 2}, {"princess_w
 		"White Princess Material Stuff", default.node_sound_defaults())
 
 if minetest.get_modpath("furniture") then
+	furniture.register_wooden("princess:princess_pink_material", {
+		tiles_chair = {"princess_pink_material.png"},
+		tiles_table = {"princess_pink_material.png"}
+	})
 	furniture.register_stone("princess:princess_rose_cobble", {})
 	furniture.register_wooden("princess:princess_white_material", {
 		tiles_chair = {"princess_white_material.png"},
@@ -289,6 +355,7 @@ if minetest.get_modpath("furniture") then
 end
 
 if minetest.get_modpath("viaduct") then
+	viaduct.register_wood_bridge("princess:princess_pink_material", {})
 	viaduct.register_wood_bridge("princess:princess_white_material", {})
 end
 
@@ -335,6 +402,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "princess:princess_chest",
+	recipe = {
+		{"princess:princess_pink_material", "princess:princess_pink_material", "princess:princess_pink_material"},
+		{"princess:princess_pink_material", "", "princess:princess_pink_material"},
+		{"princess:princess_pink_material", "princess:princess_pink_material", "princess:princess_pink_material"}
+	}
+})
+
+minetest.register_craft({
 	type = "shapeless",
 	output = "princess:princess_dungeon_brick",
 	recipe = {"default:stonebrick", "default:mese_crystal_fragment"}
@@ -346,6 +422,15 @@ minetest.register_craft({
 	recipe = {"default:mossycobble", "princess:princess_dungeon_brick"},
 	replacements = {
 		{"default:mossycobble", "default:cobble"}
+	}
+})
+
+minetest.register_craft({
+	output = "princess:princess_pink_material",
+	recipe = {
+		{"default:clay_lump", "default:clay_lump", "default:clay_lump"},
+		{"default:clay_lump", "dye:pink", "default:clay_lump"},
+		{"default:clay_lump", "default:clay_lump", "default:clay_lump"}
 	}
 })
 

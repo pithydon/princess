@@ -1,0 +1,410 @@
+local register_internal_material = function(subname, groups, tiles, subdesc, sounds)
+	minetest.register_node("princess:"..subname, {
+		description = subdesc,
+		drawtype = "normal",
+		tiles = tiles,
+		groups = groups,
+		sounds = sounds
+	})
+	if minetest.get_modpath("csh") then
+		csh.register_material("princess:"..subname, {
+			subname = subname,
+			description = subdesc,
+			tiles = tiles,
+			groups = groups,
+			sounds = sounds
+		})
+	end
+	if minetest.get_modpath("moreblocks") then
+		stairsplus:register_all("stairs", subname, "princess:"..subname, {
+			description = subdesc,
+			tiles = tiles,
+			groups = groups,
+			sounds = sounds
+		})
+	else
+		stairs.register_stair_and_slab(subname, "princess:"..subname, groups, tiles,
+				subdesc.." Stairs", subdesc.." Slab", sounds)
+	end
+end
+
+minetest.register_node("princess:gold_candle", {
+	description = "Gold Candle",
+	drawtype = "torchlike",
+	paramtype = "light",
+	paramtype2 = "wallmounted",
+	sunlight_propagates = true,
+	tiles = {
+		{
+			name = "princess_gold_candle_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2.5
+			}
+		},
+		{
+			name = "princess_gold_candle_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2.5
+			}
+		},
+		{
+			name = "princess_gold_candle_wall_animated.png",
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2.5
+			}
+		}
+	},
+	wield_image = "princess_gold_candle.png",
+	inventory_image = "princess_gold_candle.png",
+	selection_box = {
+		type = "wallmounted",
+		wall_top = {-0.125, -0.5, -0.125, 0.125, 0, 0.125},
+		wall_bottom = {-0.125, -0.5, -0.125, 0.125, 0, 0.125},
+		wall_side = {-0.5, -0.5, -0.125, -0.1875, 0.125, 0.125}
+	},
+	walkable = false,
+	groups = {dig_immediate = 3, attached_node = 1},
+	light_source = default.LIGHT_MAX - 1
+})
+
+minetest.register_node("princess:gold_candle_unlit", {
+	description = "Unlit Gold Candle",
+	drawtype = "torchlike",
+	paramtype = "light",
+	paramtype2 = "wallmounted",
+	sunlight_propagates = true,
+	tiles = {"princess_gold_candle_unlit.png", "princess_gold_candle_unlit.png", "princess_gold_candle_wall_unlit.png"},
+	wield_image = "princess_gold_candle_unlit.png",
+	inventory_image = "princess_gold_candle_unlit.png",
+	selection_box = {
+		type = "wallmounted",
+		wall_top = {-0.125, -0.5, -0.125, 0.125, 0, 0.125},
+		wall_bottom = {-0.125, -0.5, -0.125, 0.125, 0, 0.125},
+		wall_side = {-0.5, -0.5, -0.125, -0.1875, 0.125, 0.125}
+	},
+	walkable = false,
+	groups = {dig_immediate = 3, attached_node = 1}
+})
+
+minetest.register_node("princess:gold_chandelier", {
+	description = "Gold Chandelier",
+	drawtype = "plantlike",
+	paramtype = "light",
+	sunlight_propagates = true,
+	tiles = {{
+		name = "princess_gold_chandelier_animated.png",
+		animation = {
+			type = "vertical_frames",
+			aspect_w = 16,
+			aspect_h = 16,
+			length = 2.5
+		}
+	}},
+	wield_image = "princess_gold_chandelier.png",
+	inventory_image = "princess_gold_chandelier.png",
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.375, -0.5, -0.375, 0.375, 0.5, 0.375}
+	},
+	walkable = false,
+	groups = {dig_immediate = 2},
+	light_source = default.LIGHT_MAX
+})
+
+minetest.register_node("princess:gold_chandelier_unlit", {
+	description = "Unlit Gold Chandelier",
+	drawtype = "plantlike",
+	paramtype = "light",
+	sunlight_propagates = true,
+	tiles = {"princess_gold_chandelier_unlit.png"},
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.375, -0.5, -0.375, 0.375, 0.5, 0.375}
+	},
+	walkable = false,
+	groups = {dig_immediate = 2}
+})
+
+minetest.register_node("princess:throne", {
+	description = "Princess Throne",
+	drawtype = "nodebox",
+	tiles = {"princess_throne_top.png", "princess_white_material.png", "princess_white_material.png",
+			"princess_white_material.png", "princess_white_material.png", "princess_throne_front.png"},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.3125, -0.5, 0.1875, -0.1875, -0.0625, 0.3125},
+			{0.1875, -0.5, 0.1875, 0.3125, -0.0625, 0.3125},
+			{-0.3125, -0.5, -0.3125, -0.1875, -0.0625, -0.1875},
+			{0.1875, -0.5, -0.3125, 0.3125, -0.0625, -0.1875},
+			{-0.3125, -0.0625, -0.3125, 0.3125, 0.0625, 0.3125},
+			{-0.3125, 0.0625, 0.1875, 0.3125, 0.9375, 0.3125},
+			{-0.3125, 0.9375, 0.1875, -0.1875, 1, 0.3125},
+			{0.1875, 0.9375, 0.1875, 0.3125, 1, 0.3125}
+		},
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-0.3125, -0.5, -0.3125, 0.3125, 0.0625, 0.3125},
+			{-0.3125, 0.0625, 0.1875, 0.3125, 1, 0.3125}
+		}
+	},
+	groups = {cracky = 2},
+	sounds = default.node_sound_defaults()
+})
+
+beds.register_bed("princess:princess_bed", {
+	description = "Princess Bed",
+	inventory_image = "princess_bed.png",
+	wield_image = "princess_bed.png",
+	tiles = {
+		bottom = {"princess_bed_bottom_top.png", "princess_white_material.png", "princess_bed_bottom_side.png",
+				"princess_bed_bottom_side.png^[transformFX", "princess_white_material.png"},
+		top = {"princess_bed_top_top.png", "princess_white_material.png", "princess_bed_top_side.png",
+				"princess_bed_top_side.png^[transformFX", "princess_white_material.png"}
+	},
+	nodebox = {
+		bottom = {
+			{-0.5, -0.375, -0.5, 0.5, 0.0625, 0.5},
+			{-0.5, -0.5, 0.375, -0.3125, -0.375, 0.5},
+			{0.3125, -0.5, 0.375, 0.5, -0.375, 0.5},
+			{-0.5, -0.5, -0.5, -0.3125, -0.375, -0.25},
+			{0.3125, -0.5, -0.5, 0.5, -0.375, -0.25},
+			{-0.5, 0.0625, -0.5, -0.375, 0.3125, -0.375},
+			{0.375, 0.0625, -0.5, 0.5, 0.3125, -0.375},
+			{-0.375, 0.0625, -0.5, 0.375, 0.25, -0.4375}
+		},
+		top = {
+			{-0.5, -0.375, -0.5, 0.5, 0.0625, 0.5},
+			{-0.5, -0.5, 0.25, -0.3125, -0.375, 0.5},
+			{0.3125, -0.5, 0.25, 0.5, -0.375, 0.5},
+			{-0.5, -0.5, -0.5, -0.3125, -0.375, -0.375},
+			{0.3125, -0.5, -0.5, 0.5, -0.375, -0.375},
+			{-0.5, 0.0625, 0.375, -0.375, 0.4375, 0.5},
+			{0.375, 0.0625, 0.375, 0.5, 0.4375, 0.5},
+			{-0.375, 0.0625, 0.4375, 0.375, 0.375, 0.5},
+			{-0.25, 0.375, 0.4375, 0.25, 0.5, 0.5}
+		}
+	},
+	selectionbox = {
+		{-0.5, -0.5, -0.5, 0.5, 0.0625, 1.5},
+		{-0.5, 0.0625, 1.375, 0.5, 0.4375, 1.5},
+		{-0.5, 0.0625, -0.5, 0.5, 0.3125, -0.375}
+	},
+	recipe = {
+		{"wool:pink", "wool:pink", "wool:white"},
+		{"princess:princess_white_material", "princess:princess_white_material", "princess:princess_white_material"}
+	}
+})
+
+default.register_fence("princess:princess_white_material_fence", {
+	description = "White Princess Material Stuff Fence",
+	texture = "princess_white_material.png",
+	material = "princess:princess_white_material",
+	groups = {cracky = 2},
+	sounds = default.node_sound_defaults()
+})
+
+doors.register_door("princess:princess_white_material_door", {
+	description = "White Princess Material Stuff Door",
+	inventory_image = "princess_white_material_door_inv.png",
+	tiles = {"princess_white_material_door.png"},
+	recipe = {
+		{"princess:princess_white_material", "princess:princess_white_material"},
+		{"princess:princess_white_material", "princess:princess_white_material"},
+		{"princess:princess_white_material", "princess:princess_white_material"}
+	},
+	groups = {cracky = 2},
+	sounds = default.node_sound_defaults(),
+	protected = false
+})
+
+doors.register_fencegate("princess:princess_white_material_fence_gate", {
+	description = "White Princess Material Stuff Fence Gate",
+	texture = "princess_white_material.png",
+	material = "princess:princess_white_material",
+	groups = {cracky = 2},
+	sounds = default.node_sound_defaults()
+})
+
+walls.register("princess:princess_rose_cobble_wall", "Rose Cobblestone Wall", "default_cobble.png^princess_rose_cobble.png",
+		"princess:princess_rose_cobble", default.node_sound_stone_defaults())
+walls.register("princess:princess_white_material_wall", "White Princess Material Stuff Wall", "princess_white_material.png",
+		"princess:princess_white_material", default.node_sound_defaults())
+
+minetest.register_node("princess:ghost_princess_dungeon_brick", {
+	description = "Secret dungeon door.",
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	walkable = false,
+	node_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5}
+	},
+	drop = "princess:princess_dungeon_brick",
+	tiles = {"blank.png", "blank.png", "blank.png", "blank.png", "blank.png", "princess_dungeon_brick.png"},
+	groups = {cracky = 3, not_in_creative_inventory = 1},
+	sounds = default.node_sound_stone_defaults()
+})
+
+register_internal_material("princess_brick_blue", {cracky = 3}, {"princess_brick_blue.png"},
+		"Blue Princess Brick", default.node_sound_stone_defaults())
+register_internal_material("princess_brick_yellow", {cracky = 3}, {"princess_brick_yellow.png"},
+		"Yellow Princess Brick", default.node_sound_stone_defaults())
+register_internal_material("princess_brick", {cracky = 3}, {"princess_brick.png"},
+		"Princess Brick", default.node_sound_stone_defaults())
+register_internal_material("princess_dungeon_brick", {cracky = 3}, {"princess_dungeon_brick.png"},
+		"Princess Dungeon Brick", default.node_sound_stone_defaults())
+register_internal_material("princess_mossy_dungeon_brick", {cracky = 3}, {"princess_mossy_dungeon_brick.png"},
+		"Mossy Princess Dungeon Brick", default.node_sound_stone_defaults())
+register_internal_material("princess_rose_cobble", {cracky = 3, stone = 2}, {"default_cobble.png^princess_rose_cobble.png"},
+		"Rose Cobblestone", default.node_sound_stone_defaults())
+register_internal_material("princess_tower_brick", {cracky = 3}, {"princess_tower_brick.png"},
+		"Princess Tower Brick", default.node_sound_stone_defaults())
+register_internal_material("princess_tower_crack_brick", {cracky = 2}, {"princess_tower_crack_brick.png"},
+		"cracked Princess Tower Brick", default.node_sound_stone_defaults())
+register_internal_material("princess_white_material", {cracky = 2}, {"princess_white_material.png"},
+		"White Princess Material Stuff", default.node_sound_defaults())
+
+if minetest.get_modpath("furniture") then
+	furniture.register_stone("princess:princess_rose_cobble", {})
+	furniture.register_wooden("princess:princess_white_material", {
+		tiles_chair = {"princess_white_material.png"},
+		tiles_table = {"princess_white_material.png"}
+	})
+	furniture.register_seat("princess:throne")
+end
+
+if minetest.get_modpath("viaduct") then
+	viaduct.register_wood_bridge("princess:princess_white_material", {})
+end
+
+minetest.register_craft({
+	output = "princess:gold_candle",
+	recipe = {
+		{"default:torch"},
+		{"default:gold_ingot"}
+	}
+})
+
+minetest.register_craft({
+	output = "princess:gold_candle_unlit",
+	recipe = {
+		{"group:stick"},
+		{"default:gold_ingot"}
+	}
+})
+
+minetest.register_craft({
+	output = "princess:gold_chandelier",
+	recipe = {
+		{"", "default:gold_ingot", ""},
+		{"default:torch", "default:gold_ingot", "default:torch"}
+	}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "princess:princess_brick",
+	recipe = {"default:brick", "default:mese_crystal", "dye:pink"}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "princess:princess_brick_blue",
+	recipe = {"princess:princess_brick", "dye:cyan"}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "princess:princess_brick_yellow",
+	recipe = {"princess:princess_brick", "dye:yellow"}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "princess:princess_dungeon_brick",
+	recipe = {"default:stonebrick", "default:mese_crystal_fragment"}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "princess:princess_mossy_dungeon_brick",
+	recipe = {"default:mossycobble", "princess:princess_dungeon_brick"},
+	replacements = {
+		{"default:mossycobble", "default:cobble"}
+	}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "princess:princess_tower_brick",
+	recipe = {"default:stonebrick", "default:mese_crystal"}
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "princess:princess_tower_brick",
+	recipe = "princess:princess_tower_crack_brick",
+	cooktime = 3
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "princess:princess_tower_crack_brick",
+	recipe = {"princess:princess_tower_brick"}
+})
+
+minetest.register_craft({
+	output = "princess:princess_white_material",
+	recipe = {
+		{"default:clay_lump", "default:clay_lump", "default:clay_lump"},
+		{"default:clay_lump", "dye:white", "default:clay_lump"},
+		{"default:clay_lump", "default:clay_lump", "default:clay_lump"}
+	}
+})
+
+minetest.register_craft({
+	output = "princess:gold_chandelier_unlit",
+	recipe = {
+		{"", "default:gold_ingot", ""},
+		{"group:stick", "default:gold_ingot", "group:stick"}
+	}
+})
+
+minetest.register_craft({
+	output = "princess:throne",
+	recipe = {
+		{"princess:princess_white_material", ""},
+		{"princess:princess_white_material", "wool:pink"},
+		{"princess:princess_white_material", "princess:princess_white_material"}
+	}
+})
+
+minetest.register_craft({
+	output = "princess:throne",
+	recipe = {
+		{"", "princess:princess_white_material"},
+		{"wool:pink", "princess:princess_white_material"},
+		{"princess:princess_white_material", "princess:princess_white_material"}
+	}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "princess:princess_rose_cobble",
+	recipe = {"default:cobble", "flowers:rose"}
+})

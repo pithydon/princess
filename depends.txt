@@ -1,0 +1,9 @@
+beds
+default
+doors
+stairs
+walls
+csh?
+furniture?
+moreblocks?
+viaduct?

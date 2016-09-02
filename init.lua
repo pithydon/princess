@@ -267,6 +267,20 @@ default.register_fence("princess:princess_white_material_fence", {
 	sounds = default.node_sound_defaults()
 })
 
+doors.register_door("princess:princess_pink_material_door", {
+	description = "Pink Princess Material Stuff Door",
+	inventory_image = "princess_pink_material_door_inv.png",
+	tiles = {"princess_pink_material_door.png"},
+	recipe = {
+		{"princess:princess_pink_material", "princess:princess_pink_material"},
+		{"princess:princess_pink_material", "princess:princess_pink_material"},
+		{"princess:princess_pink_material", "princess:princess_pink_material"}
+	},
+	groups = {cracky = 2},
+	sounds = default.node_sound_defaults(),
+	protected = false
+})
+
 doors.register_door("princess:princess_white_material_door", {
 	description = "White Princess Material Stuff Door",
 	inventory_image = "princess_white_material_door_inv.png",

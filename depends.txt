@@ -6,4 +6,5 @@ walls
 csh?
 furniture?
 moreblocks?
+treasurer?
 viaduct?

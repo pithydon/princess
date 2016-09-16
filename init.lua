@@ -507,3 +507,24 @@ minetest.register_craft({
 	output = "princess:princess_rose_cobble",
 	recipe = {"default:cobble", "flowers:rose"}
 })
+
+if minetest.get_modpath("treasurer") then
+	treasurer.register_treasure("princess:gold_candle",0.002,7,{1,5},nil,"light")
+	treasurer.register_treasure("princess:gold_candle_unlit",0.001,3,{1,5})
+	treasurer.register_treasure("princess:gold_chandelier",0.002,7,1,nil,"light")
+	treasurer.register_treasure("princess:gold_chandelier_unlit",0.001,3,1)
+	treasurer.register_treasure("princess:ghost_princess_dungeon_brick",0.000001,10,{1,2})
+	treasurer.register_treasure("princess:princess_brick_blue",0.006,9,{1,8},nil,"building_block")
+	treasurer.register_treasure("princess:princess_brick_yellow",0.006,9,{1,8},nil,"building_block")
+	treasurer.register_treasure("princess:princess_brick",0.006,9,{1,8},nil,"building_block")
+	treasurer.register_treasure("princess:princess_dungeon_brick",0.002,5,{1,5},nil,"building_block")
+	treasurer.register_treasure("princess:princess_mossy_dungeon_brick",0.001,5,1,nil,"building_block")
+	treasurer.register_treasure("princess:princess_pink_material",0.008,5,{1,16},nil,"building_block")
+	treasurer.register_treasure("princess:princess_pink_material_door",0.002,5,1,nil,"building_block")
+	treasurer.register_treasure("princess:princess_rose_cobble",0.005,1,{1,5},nil,"building_block")
+	treasurer.register_treasure("princess:princess_tower_brick",0.002,9,{1,5},nil,"building_block")
+	treasurer.register_treasure("princess:princess_tower_crack_brick",0.001,8,1,nil,"building_block")
+	treasurer.register_treasure("princess:princess_white_material",0.008,5,{1,16},nil,"building_block")
+	treasurer.register_treasure("princess:princess_white_material_door",0.002,5,1,nil,"building_block")
+	treasurer.register_treasure("princess:throne",0.0005,6,1,nil,"deco")
+end

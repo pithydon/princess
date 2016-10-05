@@ -508,6 +508,32 @@ minetest.register_craft({
 	recipe = {"default:cobble", "flowers:rose"}
 })
 
+if minetest.get_modpath("mymillwork") then
+	mymillwork.register_all(
+		"princess_pink_material",
+		"Pink Princess Material Stuff",
+		"princess_pink_material.png",
+		{cracky = 2, not_in_creative_inventory = 1},
+		"princess:princess_pink_material"
+	)
+
+	mymillwork.register_all(
+		"princess_rose_cobble",
+		"Rose Cobblestone",
+		"default_cobble.png^princess_rose_cobble.png",
+		{cracky = 3, not_in_creative_inventory = 1},
+		"princess:princess_rose_cobble"
+	)
+
+	mymillwork.register_all(
+		"princess_white_material",
+		"White Princess Material Stuff",
+		"princess_white_material.png",
+		{cracky = 2, not_in_creative_inventory = 1},
+		"princess:princess_white_material"
+	)
+end
+
 if minetest.get_modpath("treasurer") then
 	treasurer.register_treasure("princess:gold_candle",0.002,7,{1,5},nil,"light")
 	treasurer.register_treasure("princess:gold_candle_unlit",0.001,3,{1,5})

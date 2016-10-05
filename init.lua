@@ -137,11 +137,10 @@ minetest.register_node("princess:gold_chandelier_unlit", {
 minetest.register_node("princess:princess_chest", {
 	description = "Princess Chest",
 	drawtype = "normal",
-	paramtype = "light",
 	paramtype2 = "facedir",
 	tiles = {"princess_chest_top.png", "princess_chest_top.png", "princess_chest_side.png",
 			"princess_chest_side.png", "princess_chest_side.png", "princess_chest_front.png"},
-	groups = {cracky = 2},
+	groups = {cracky = 3},
 	sounds = default.node_sound_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
@@ -203,7 +202,7 @@ minetest.register_node("princess:throne", {
 			{-0.3125, 0.0625, 0.1875, 0.3125, 1, 0.3125}
 		}
 	},
-	groups = {cracky = 2},
+	groups = {cracky = 3},
 	sounds = default.node_sound_defaults()
 })
 
@@ -255,7 +254,7 @@ default.register_fence("princess:princess_pink_material_fence", {
 	description = "Pink Princess Material Stuff Fence",
 	texture = "princess_pink_material.png",
 	material = "princess:princess_pink_material",
-	groups = {cracky = 2},
+	groups = {cracky = 3},
 	sounds = default.node_sound_defaults()
 })
 
@@ -263,7 +262,7 @@ default.register_fence("princess:princess_white_material_fence", {
 	description = "White Princess Material Stuff Fence",
 	texture = "princess_white_material.png",
 	material = "princess:princess_white_material",
-	groups = {cracky = 2},
+	groups = {cracky = 3},
 	sounds = default.node_sound_defaults()
 })
 
@@ -276,7 +275,7 @@ doors.register_door("princess:princess_pink_material_door", {
 		{"princess:princess_pink_material", "princess:princess_pink_material"},
 		{"princess:princess_pink_material", "princess:princess_pink_material"}
 	},
-	groups = {cracky = 2},
+	groups = {cracky = 3},
 	sounds = default.node_sound_defaults(),
 	protected = false
 })
@@ -290,7 +289,7 @@ doors.register_door("princess:princess_white_material_door", {
 		{"princess:princess_white_material", "princess:princess_white_material"},
 		{"princess:princess_white_material", "princess:princess_white_material"}
 	},
-	groups = {cracky = 2},
+	groups = {cracky = 3},
 	sounds = default.node_sound_defaults(),
 	protected = false
 })
@@ -299,7 +298,7 @@ doors.register_fencegate("princess:princess_pink_material_fence_gate", {
 	description = "Pink Princess Material Stuff Fence Gate",
 	texture = "princess_pink_material.png",
 	material = "princess:princess_pink_material",
-	groups = {cracky = 2},
+	groups = {cracky = 3},
 	sounds = default.node_sound_defaults()
 })
 
@@ -307,7 +306,7 @@ doors.register_fencegate("princess:princess_white_material_fence_gate", {
 	description = "White Princess Material Stuff Fence Gate",
 	texture = "princess_white_material.png",
 	material = "princess:princess_white_material",
-	groups = {cracky = 2},
+	groups = {cracky = 3},
 	sounds = default.node_sound_defaults()
 })
 
@@ -330,7 +329,7 @@ minetest.register_node("princess:ghost_princess_dungeon_brick", {
 	},
 	drop = "princess:princess_dungeon_brick",
 	tiles = {"blank.png", "blank.png", "blank.png", "blank.png", "blank.png", "princess_dungeon_brick.png"},
-	groups = {cracky = 3, not_in_creative_inventory = 1},
+	groups = {cracky = 2, not_in_creative_inventory = 1},
 	sounds = default.node_sound_stone_defaults()
 })
 
@@ -340,19 +339,19 @@ register_internal_material("princess_brick_yellow", {cracky = 3}, {"princess_bri
 		"Yellow Princess Brick", default.node_sound_stone_defaults())
 register_internal_material("princess_brick", {cracky = 3}, {"princess_brick.png"},
 		"Princess Brick", default.node_sound_stone_defaults())
-register_internal_material("princess_dungeon_brick", {cracky = 3}, {"princess_dungeon_brick.png"},
+register_internal_material("princess_dungeon_brick", {cracky = 2}, {"princess_dungeon_brick.png"},
 		"Princess Dungeon Brick", default.node_sound_stone_defaults())
-register_internal_material("princess_mossy_dungeon_brick", {cracky = 3}, {"princess_mossy_dungeon_brick.png"},
+register_internal_material("princess_mossy_dungeon_brick", {cracky = 2}, {"princess_mossy_dungeon_brick.png"},
 		"Mossy Princess Dungeon Brick", default.node_sound_stone_defaults())
-register_internal_material("princess_pink_material", {cracky = 2}, {"princess_pink_material.png"},
+register_internal_material("princess_pink_material", {cracky = 3}, {"princess_pink_material.png"},
 		"Pink Princess Material Stuff", default.node_sound_defaults())
 register_internal_material("princess_rose_cobble", {cracky = 3, stone = 2}, {"default_cobble.png^princess_rose_cobble.png"},
 		"Rose Cobblestone", default.node_sound_stone_defaults())
-register_internal_material("princess_tower_brick", {cracky = 3}, {"princess_tower_brick.png"},
+register_internal_material("princess_tower_brick", {cracky = 2}, {"princess_tower_brick.png"},
 		"Princess Tower Brick", default.node_sound_stone_defaults())
-register_internal_material("princess_tower_crack_brick", {cracky = 2}, {"princess_tower_crack_brick.png"},
+register_internal_material("princess_tower_crack_brick", {cracky = 3}, {"princess_tower_crack_brick.png"},
 		"cracked Princess Tower Brick", default.node_sound_stone_defaults())
-register_internal_material("princess_white_material", {cracky = 2}, {"princess_white_material.png"},
+register_internal_material("princess_white_material", {cracky = 3}, {"princess_white_material.png"},
 		"White Princess Material Stuff", default.node_sound_defaults())
 
 if minetest.get_modpath("furniture") then

@@ -1,10 +1,6 @@
-princess by pithydon (2016)
+princess v1.0
 
 Princess themed decoration mod.
-
-Forum: https://forum.minetest.net/viewtopic.php?f=11&t=15414
-
-Github: https://github.com/pithydon/princess
 
 License for all of this mod is "CC0", see below.
 

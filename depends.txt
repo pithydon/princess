@@ -5,6 +5,7 @@ stairs
 walls
 csh?
 furniture?
+mcstair?
 moreblocks?
 mymillwork?
 treasurer?

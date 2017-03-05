@@ -25,6 +25,9 @@ local register_internal_material = function(subname, groups, tiles, subdesc, sou
 	else
 		stairs.register_stair_and_slab(subname, "princess:"..subname, groups, tiles,
 				subdesc.." Stairs", subdesc.." Slab", sounds)
+		if minetest.get_modpath("mcstair") then
+			mcstair.add("stairs:stair_"..subname)
+		end
 	end
 end
 
@@ -150,7 +153,7 @@ minetest.register_node("princess:princess_chest", {
 				default.get_hotbar_bg(0,4.85))
 		meta:set_string("infotext", "Princess Chest")
 		local inv = meta:get_inventory()
-		inv:set_size("main", 8*4)
+		inv:set_size("main", 32)
 	end,
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);
@@ -333,6 +336,16 @@ minetest.register_node("princess:ghost_princess_dungeon_brick", {
 	sounds = default.node_sound_stone_defaults()
 })
 
+minetest.register_node("princess:rose_bush", {
+	description = "Rose Bush",
+	drawtype = "allfaces_optional",
+	waving = 1,
+	paramtype = "light",
+	tiles = {"default_leaves.png^princess_rose_cobble.png"},
+	groups = {snappy = 3},
+	sounds = default.node_sound_leaves_defaults()
+})
+
 register_internal_material("princess_brick_blue", {cracky = 3}, {"princess_brick_blue.png"},
 		"Blue Princess Brick", default.node_sound_stone_defaults())
 register_internal_material("princess_brick_yellow", {cracky = 3}, {"princess_brick_yellow.png"},
@@ -502,9 +515,21 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	type = "shapeless",
 	output = "princess:princess_rose_cobble",
-	recipe = {"default:cobble", "flowers:rose"}
+	recipe = {
+		{"", "flowers:rose", ""},
+		{"flowers:rose", "default:cobble", "flowers:rose"},
+		{"", "flowers:rose", ""}
+	}
+})
+
+minetest.register_craft({
+	output = "princess:rose_bush",
+	recipe = {
+		{"", "flowers:rose", ""},
+		{"flowers:rose", "default:bush_leaves", "flowers:rose"},
+		{"", "flowers:rose", ""}
+	}
 })
 
 if minetest.get_modpath("mymillwork") then

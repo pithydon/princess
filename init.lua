@@ -13,6 +13,32 @@ local register_internal_material = function(subname, groups, tiles, subdesc, sou
 		minetest.register_alias("stairs:stair_"..subname.."_outer", "stairs:stair_outer_"..subname)
 		minetest.register_alias("stairs:stair_"..subname.."_inner", "stairs:stair_inner_"..subname)
 	end
+	if minetest.get_modpath("castle_masonry") then
+		if minetest.settings:get_bool("castle_masonry_pillar", true) then
+			castle_masonry.register_pillar({
+				name = subname,
+				description = subdesc,
+				tile = tiles,
+				craft_material = "princess:"..subname
+			})
+		end
+		if minetest.settings:get_bool("castle_masonry_arrowslit", true) then
+			castle_masonry.register_arrowslit({
+				name = subname,
+				description = subdesc,
+				tile = tiles,
+				craft_material = "princess:"..subname
+			})
+		end
+		if minetest.settings:get_bool("castle_masonry_murderhole", true) then
+			castle_masonry.register_murderhole({
+				name = subname,
+				description = subdesc,
+				tile = tiles,
+				craft_material = "princess:"..subname
+			})
+		end
+	end
 end
 
 minetest.register_node("princess:gold_candle", {
@@ -131,7 +157,7 @@ minetest.register_node("princess:princess_chest", {
 	sounds = default.node_sound_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", "size[8,9]"..default.gui_bg..default.gui_bg_img..default.gui_slots..
+		meta:set_string("formspec", "size[8,9]"..
 				"list[current_name;main;0,0.3;8,4;]list[current_player;main;0,4.85;8,1;]"..
 				"list[current_player;main;0,6.08;8,3;8]listring[current_name;main]listring[current_player;main]"..
 				default.get_hotbar_bg(0,4.85))
@@ -515,32 +541,6 @@ minetest.register_craft({
 		{"", "flowers:rose", ""}
 	}
 })
-
-if minetest.get_modpath("mymillwork") then
-	mymillwork.register_all(
-		"princess_pink_material",
-		"Pink Princess Material Stuff",
-		"princess_pink_material.png",
-		{cracky = 2, not_in_creative_inventory = 1},
-		"princess:princess_pink_material"
-	)
-
-	mymillwork.register_all(
-		"princess_rose_cobble",
-		"Rose Cobblestone",
-		"default_cobble.png^princess_rose_cobble.png",
-		{cracky = 3, not_in_creative_inventory = 1},
-		"princess:princess_rose_cobble"
-	)
-
-	mymillwork.register_all(
-		"princess_white_material",
-		"White Princess Material Stuff",
-		"princess_white_material.png",
-		{cracky = 2, not_in_creative_inventory = 1},
-		"princess:princess_white_material"
-	)
-end
 
 if minetest.get_modpath("treasurer") then
 	treasurer.register_treasure("princess:gold_candle",0.002,7,{1,5},nil,"light")

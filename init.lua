@@ -279,6 +279,22 @@ default.register_fence("princess:princess_white_material_fence", {
 	sounds = default.node_sound_defaults()
 })
 
+default.register_fence_rail("princess:princess_pink_material_fence_rail", {
+	description = "Pink Princess Material Stuff Fence Rail",
+	texture = "princess_pink_material.png",
+	material = "princess:princess_pink_material",
+	groups = {cracky = 3},
+	sounds = default.node_sound_defaults()
+})
+
+default.register_fence_rail("princess:princess_white_material_fence_rail", {
+	description = "White Princess Material Stuff Fence Rail",
+	texture = "princess_white_material.png",
+	material = "princess:princess_white_material",
+	groups = {cracky = 3},
+	sounds = default.node_sound_defaults()
+})
+
 doors.register_door("princess:princess_pink_material_door", {
 	description = "Pink Princess Material Stuff Door",
 	inventory_image = "princess_pink_material_door_inv.png",
@@ -378,16 +394,57 @@ register_internal_material("princess_white_material", {cracky = 3}, {"princess_w
 		"White Princess Material Stuff", default.node_sound_defaults())
 
 if minetest.get_modpath("furniture") then
-	furniture.register_wooden("princess:princess_pink_material", {
-		tiles_chair = {"princess_pink_material.png"},
-		tiles_table = {"princess_pink_material.png"}
-	})
-	furniture.register_stone("princess:princess_rose_cobble", {})
-	furniture.register_wooden("princess:princess_white_material", {
-		tiles_chair = {"princess_white_material.png"},
-		tiles_table = {"princess_white_material.png"}
-	})
+	furniture.register_chair("princess:princess_pink_material", {prefix = "princess:", tiles = {"princess_pink_material.png"}})
+	furniture.register_stool("princess:princess_pink_material", {prefix = "princess:"})
+	furniture.register_bench("princess:princess_pink_material", {prefix = "princess:"})
+	furniture.register_table("princess:princess_pink_material", {prefix = "princess:", tiles = {"princess_pink_material.png"}, handle_crafts = false})
+	furniture.register_pedestal("princess:princess_pink_material", {prefix = "princess:"})
+	furniture.register_chair("princess:princess_white_material", {prefix = "princess:", tiles = {"princess_white_material.png"}})
+	furniture.register_stool("princess:princess_white_material", {prefix = "princess:"})
+	furniture.register_bench("princess:princess_white_material", {prefix = "princess:"})
+	furniture.register_table("princess:princess_white_material", {prefix = "princess:", tiles = {"princess_white_material.png"}, handle_crafts = false})
+	furniture.register_pedestal("princess:princess_white_material", {prefix = "princess:"})
+	furniture.register_stump("princess:princess_rose_cobble", {prefix = "princess:", description = "Rose Cobblestone Stool"})
+	furniture.register_pedestal("princess:princess_rose_cobble", {prefix = "princess:", description = "Rose Cobblestone Pedestal"})
 	furniture.register_seat("princess:throne")
+
+	minetest.register_craft({
+		output = "princess:table_princess_pink_material",
+		recipe = {
+			{"princess:princess_pink_material", "princess:princess_pink_material", "princess:princess_pink_material"},
+			{"", "group:stick", ""},
+			{"", "group:stick", ""}
+		}
+	})
+	minetest.register_craft({
+		output = "princess:table_princess_white_material",
+		recipe = {
+			{"princess:princess_white_material", "princess:princess_white_material", "princess:princess_white_material"},
+			{"", "group:stick", ""},
+			{"", "group:stick", ""}
+		}
+	})
+
+	--[[ legacy aliases ]]
+	minetest.register_alias("furniture:chair_princess_pink_material", "princess:chair_princess_pink_material")
+	minetest.register_alias("furniture:stool_princess_pink_material", "princess:stool_princess_pink_material")
+	minetest.register_alias("furniture:bench_princess_pink_material", "princess:bench_princess_pink_material")
+	minetest.register_alias("furniture:bench_middle_princess_pink_material", "princess:bench_middle_princess_pink_material")
+	minetest.register_alias("furniture:bench_left_princess_pink_material", "princess:bench_left_princess_pink_material")
+	minetest.register_alias("furniture:bench_right_princess_pink_material", "princess:bench_right_princess_pink_material")
+	minetest.register_alias("furniture:table_princess_pink_material", "princess:table_princess_pink_material")
+	minetest.register_alias("furniture:chair_princess_white_material", "princess:chair_princess_white_material")
+	minetest.register_alias("furniture:stool_princess_white_material", "princess:stool_princess_white_material")
+	minetest.register_alias("furniture:bench_princess_white_material", "princess:bench_princess_white_material")
+	minetest.register_alias("furniture:bench_middle_princess_white_material", "princess:bench_middle_princess_white_material")
+	minetest.register_alias("furniture:bench_left_princess_white_material", "princess:bench_left_princess_white_material")
+	minetest.register_alias("furniture:bench_right_princess_white_material", "princess:bench_right_princess_white_material")
+	minetest.register_alias("furniture:table_princess_white_material", "princess:table_princess_white_material")
+	minetest.register_alias("furniture:stool_princess_rose_cobble", "princess:stump_princess_rose_cobble")
+	minetest.register_alias("furniture:stump_princess_rose_cobble", "princess:stump_princess_rose_cobble")
+	minetest.register_alias("furniture:table_princess_rose_cobble", "princess:pedestal_princess_rose_cobble")
+	minetest.register_alias("furniture:pedestal_princess_rose_cobble", "princess:pedestal_princess_rose_cobble")
+	--]]
 end
 
 if minetest.get_modpath("viaduct") then
